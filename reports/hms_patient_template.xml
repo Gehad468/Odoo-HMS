@@ -1,0 +1,107 @@
+<odoo>
+    <data>
+        <template id="hms_patient_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.internal_layout">
+                        <div class="page">
+                            <div class="row bg-200">
+                                <div class="col-4 text-left">
+                                    <span class="align-left text-danger">
+                                        <strong>Patient Status Report</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <table class="table borderless" style="height:100px;">
+                                <tr>
+                                    <td>Name:</td>
+                                    <td><span t-field="o.firstName"/> <span t-field="o.lastName"/></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Email:</td>
+                                    <td><span t-field="o.email"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Age:</td>
+                                    <td><span t-field="o.age"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Address:</td>
+                                    <td><span t-field="o.address"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Birth Date:</td>
+                                    <td><span t-field="o.date_birth"/></td>
+                                </tr>
+                                 <tr>
+                                    <td>Image:</td>
+                                    <td><img t-att-src="'data:image/png;base64,%s' % o.image" style="max-width: 200px; max-height: 200px;"/></td>
+                                </tr>
+                            </table>
+                            <div>
+                                <strong>Extra Information</strong>
+                            </div>
+                            <table class="table borderless">
+                                <tr>
+                                    <td>History:</td>
+                                    <td><span t-field="o.history"/></td>
+                                </tr>
+                                <tr>
+                                    <td>PCR:</td>
+                                    <td><span t-field="o.pcr"/></td>
+                                </tr>
+                                <tr>
+                                    <td>CR Ratio:</td>
+                                    <td><span t-field="o.cr_ratio"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Blood Type:</td>
+                                    <td><span t-field="o.blood_type"/></td>
+                                </tr>
+                            </table>
+                            <div>
+                                <strong>Relation Information</strong>
+                            </div>
+                            <table class="table borderless">
+                                <tr>
+                                    <td>Department:</td>
+                                    <td><span t-field="o.department_id"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Department Capacity:</td>
+                                    <td><span t-field="o.department_capacity"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Doctor:</td>
+                                    <td><span t-field="o.doctor"/></td>
+                                </tr>
+                            </table>
+                            <div>
+                                <strong>History Logs</strong>
+                            </div>
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Date</th>
+                                        <th>Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.logs_history" t-as="log">
+                                        <tr>
+                                            <td><span t-field="log.patient_id"/></td>
+                                            <td><span t-field="log.create_date"/></td>
+                                            <td><span t-field="log.description"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

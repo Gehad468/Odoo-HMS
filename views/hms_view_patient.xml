@@ -1,0 +1,98 @@
+<odoo>
+    <data>
+
+       <record id="action_hms_patient" model="ir.actions.act_window">
+            <field name="name">Patients</field>
+            <field name="res_model">hms.patient</field>
+           <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="tree_view_hms_patient" model="ir.ui.view">
+            <field name="name">Patients Tree</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <tree>
+                <field name="firstName" />
+                    <field name="lastName"/>
+                    <field name="email" />
+                    <field name="age"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="form_view_hms_patient" model="ir.ui.view">
+            <field name="name">Patients Form</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar" nolable="1" options="{'clickable':'1'}"/>
+                        <button name="Change_State" type="object" string="Change_State" />
+                    </header>
+                    <sheet>
+<!--                        <group>-->
+<!--                            <group string="personal Info">-->
+<!--                                <field name="firstName" />-->
+<!--                                <field name="lastName"/>-->
+<!--                                <field name="age"/>-->
+<!--                                <field name="address"/>-->
+<!--                                <field name="date_birth"/>-->
+<!--                                <field name="image"/>-->
+<!--                            </group>-->
+<!--                            <group string="Extra Info">-->
+<!--                                <field name="history" />-->
+<!--                                <field name="cr_ratio"/>-->
+<!--                                <field name="blood_type"/>-->
+<!--                                <field name="pcr"/>-->
+<!--                            </group>-->
+<!--                        </group>-->
+
+                        <notebook>
+                            <page string="Personal Info">
+                                <group>
+                                    <field name="firstName" />
+                                    <field name="lastName"/>
+                                    <field name="email"/>
+                                    <field name="age"/>
+                                    <field name="address"/>
+                                    <field name="date_birth"/>
+                                    <field name="image"/>
+                                </group>
+                            </page>
+                            <page string="Extra Info">
+                                <group>
+                                    <field name="history" attrs="{'invisible':[('age', '&lt;',50 )]}" />
+                                    <field name="pcr"/>
+                                    <field name="cr_ratio" attrs="{'required':[('pcr', '=',True )]}"/>
+                                    <field name="blood_type"/>
+                                </group>
+                            </page>
+                                  <page string="Relation Info">
+                                      <group>
+                                        <field name="department_id" domain="[('is_opened' ,'=' ,True)]" />
+                                        <field name="department_capacity"/>
+                                        <field name="doctor" attrs="{'readonly':[('department_id','=',False)]}" groups='hms.managers_group'/>
+                                     </group>
+                                  </page>
+                            <page string="history_logs">
+                                <group>
+                                    <field name="logs_history" >
+                                        <tree>
+                                            <field name="patient_id"/>
+                                            <field name="create_date"/>
+                                            <field name="description"/>
+                                        </tree>
+                                    </field>
+                                </group>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+            <menuitem id="menu_hms" name="HMS" />
+            <menuitem id="menu_hms_patient" name="Patients" parent="menu_hms" action="action_hms_patient" sequence="1"/>
+
+    </data>
+</odoo>
